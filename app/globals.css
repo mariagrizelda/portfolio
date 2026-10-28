@@ -422,11 +422,22 @@ main { flex: 1; }
 }
 .case .chips { margin-top: 4px; }
 
-.detail { margin-top: clamp(20px, 3vw, 32px); max-width: 68ch; }
+.detail { margin: clamp(20px, 3vw, 32px) auto 0; max-width: 72ch; }
 .detail-body { display: flex; flex-direction: column; gap: 14px; }
 .detail-body .case-blurb { font-size: 18.5px; }
 .detail-body .page-h1 { margin: 0; }
 .detail-copy { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; padding-top: 18px; border-top: 1px solid var(--card-line); }
+.detail-sections { display: flex; flex-direction: column; gap: 40px; margin-top: 10px; padding-top: 24px; border-top: 1px solid var(--card-line); }
+.detail-section { display: flex; flex-direction: column; gap: 16px; }
+.detail-h2 { font-family: var(--serif); font-size: clamp(22px, 3vw, 32px); font-weight: 400; margin: 0; text-align: center; }
+.detail-h3 { font-family: var(--serif); font-size: clamp(18px, 2.2vw, 22px); font-weight: 400; margin: 10px 0 0; }
+.detail-figure { margin: 8px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.detail-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--card-line); background: #fff; }
+.detail-figure figcaption { font-family: var(--garamond); font-style: italic; font-size: 16px; color: var(--muted); text-align: center; }
+.detail-table-wrap { width: 100%; overflow-x: auto; }
+.detail-table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 14.5px; color: var(--ink); }
+.detail-table th, .detail-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--card-line); }
+.detail-table th { font-weight: 500; background: var(--slot); }
 
 /* ---------- closet ---------- */
 .skill-list { margin-top: 30px; display: flex; flex-direction: column; gap: 18px; }

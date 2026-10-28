@@ -1,7 +1,50 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug, projects, slugify } from "@/lib/content";
+import { getProjectBySlug, projects, slugify, type Block } from "@/lib/content";
+
+function SectionBlock({ block }: { block: Block }) {
+  switch (block.type) {
+    case "subheading":
+      return <h3 className="detail-h3">{block.text}</h3>;
+    case "paragraph":
+      return <p className="case-blurb">{block.text}</p>;
+    case "image":
+      return (
+        <figure className="detail-figure">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={block.src} alt={block.alt} />
+          {block.caption && <figcaption>{block.caption}</figcaption>}
+        </figure>
+      );
+    case "table":
+      return (
+        <figure className="detail-figure">
+          <div className="detail-table-wrap">
+            <table className="detail-table">
+              <thead>
+                <tr>
+                  {block.columns.map((c) => (
+                    <th key={c}>{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.rows.map((row, r) => (
+                  <tr key={r}>
+                    {row.map((cell, c) => (
+                      <td key={c}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {block.caption && <figcaption>{block.caption}</figcaption>}
+        </figure>
+      );
+  }
+}
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: slugify(p.title) }));
@@ -47,6 +90,18 @@ export default async function ProjectDetail({
             <div className="detail-copy">
               {project.details.map((paragraph, i) => (
                 <p key={i} className="case-blurb">{paragraph}</p>
+              ))}
+            </div>
+          )}
+          {project.sections && (
+            <div className="detail-sections">
+              {project.sections.map((section) => (
+                <section key={section.title} className="detail-section">
+                  <h2 className="detail-h2">{section.title}</h2>
+                  {section.blocks.map((block, i) => (
+                    <SectionBlock key={i} block={block} />
+                  ))}
+                </section>
               ))}
             </div>
           )}
