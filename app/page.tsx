@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Slot from "@/components/Slot";
-import { featured, site, stats } from "@/lib/content";
+import { featured, site, slugify, stats } from "@/lib/content";
 
 export default function Home() {
   return (
@@ -63,8 +63,8 @@ export default function Home() {
         </div>
         <div className="feature-grid">
           {featured.map((p) => (
-            <Link key={p.title} href="/work" className="card feature">
-              <Slot label={p.slot} />
+            <Link key={p.title} href={`/work/${slugify(p.title)}`} className="card feature">
+              <Slot label={p.slot} src={p.image} alt={p.title} />
               <div className="feature-body">
                 <div className="kicker">{p.kicker}</div>
                 <div className="feature-title">{p.title}</div>

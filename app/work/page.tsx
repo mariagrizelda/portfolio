@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Slot from "@/components/Slot";
-import { projects } from "@/lib/content";
+import { projects, slugify } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Case files" };
 
@@ -16,8 +17,8 @@ export default function Work() {
       </p>
       <div className="case-list">
         {projects.map((p) => (
-          <article key={p.title} className="card case">
-            <Slot label={p.slot} note="1280 × 800" />
+          <Link key={p.title} href={`/work/${slugify(p.title)}`} className="card case">
+            <Slot label={p.slot} note="1280 × 800" src={p.image} alt={p.title} />
             <div className="case-body">
               <div className="case-meta">
                 <div className="kicker">{p.kicker}</div>
@@ -32,7 +33,7 @@ export default function Work() {
                 ))}
               </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>
