@@ -14,8 +14,8 @@ export default function Contact() {
             Maybe some questions <em>deserve</em> an answer.
           </h1>
           <p className="lede">
-            Open to analytics roles and consulting from Q1. Happiest with a warehouse that grew faster than its
-            documentation.
+            Looking for internships and graduate roles in data, product management, finance or supply chain. Happy to
+            talk about a role, a project, or anything in the case files.
           </p>
           <div className="contact-links">
             {links.map((l) => (

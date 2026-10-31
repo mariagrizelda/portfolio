@@ -2,21 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Bow from "./Bow";
-import { nav, site } from "@/lib/content";
+import { nav } from "@/lib/content";
 
 export default function Header() {
   const pathname = usePathname();
 
   return (
     <header className="header">
-      <Link href="/" className="brand">
-        <Bow />
-        <div>
-          <div className="brand-name">{site.name}</div>
-          <div className="brand-tag">{site.tagline}</div>
-        </div>
-      </Link>
       <nav className="nav">
         {nav.map((item) => (
           <Link

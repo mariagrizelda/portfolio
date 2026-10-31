@@ -29,7 +29,7 @@ export default function ContactForm() {
       </div>
       <div className="field">
         <label htmlFor="message">The question</label>
-        <textarea id="message" name="message" rows={4} placeholder="What does the data need to answer?" required />
+        <textarea id="message" name="message" rows={4} placeholder="What would you like to talk about?" required />
       </div>
       <button type="submit" className="btn btn-pink">Send it</button>
     </form>

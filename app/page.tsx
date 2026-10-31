@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Marquee from "@/components/Marquee";
 import Slot from "@/components/Slot";
-import { featured, site, slugify, stats } from "@/lib/content";
+import TiltPortrait from "@/components/TiltPortrait";
+import { cv, education, featured, interests, principles, ribbon, site, slugify } from "@/lib/content";
 
 export default function Home() {
   return (
@@ -9,71 +11,118 @@ export default function Home() {
         <div className="ribbon ribbon-a" />
         <div className="ribbon ribbon-b" />
         <div className="hero-frame">
-          <div className="tag">
-            <div className="tag-hole" />
-            <h2 className="tag-title">
-              <span className="tag-big">Data</span>
-              <span className="tag-mid">and the</span>
-              <span className="tag-big">City</span>
-              <span className="tag-small">
-                &amp; other <i>queries</i>
-              </span>
-            </h2>
-            <div className="tag-foot">{site.name} · Analytics portfolio</div>
+          <div className="hero-copy">
+            <div className="hero-eyebrow">Portfolio · {new Date().getFullYear()}</div>
+            <p className="display hero-title">
+              Hi, I&apos;m <em>Maria Helga</em>.
+            </p>
+            <p className="hero-sub">Computer Science Fresh Graduate </p>
+            <div className="hero-pills-label">Interested in</div>
+            <ul className="hero-pills" aria-label="Interests">
+              {interests.map((i) => (
+                <li key={i}>{i}</li>
+              ))}
+            </ul>
+            <a href="#about" className="hero-scroll">
+              More about me <span aria-hidden>↓</span>
+            </a>
+          </div>
+          <div className="hero-visual">
+            <TiltPortrait>
+              <span className="tape" aria-hidden />
+              <Slot label="Author portrait" src="/portrait.jpg" alt={site.name} />
+              <div className="portrait-deco" aria-hidden>
+                <span className="deco-line" />
+                <span className="deco-stars">✦ ✦ ✦</span>
+                <span className="deco-line" />
+              </div>
+            </TiltPortrait>
+            <span className="sticker sticker-a">✦ Open to internships</span>
+            <span className="sticker sticker-b">Denpasar / Jakarta</span>
+            <span className="sticker sticker-c">UI × UQ</span>
           </div>
         </div>
       </div>
 
-      <section className="intro">
-        <div>
-          <div className="eyebrow">Volume 06 · Issue 1 · Analytics</div>
+      <section id="about" className="intro">
+        <div data-reveal>
+          <div className="eyebrow">Volume 06 · Issue 1 · About the author</div>
           <h1 className="display">
-            I couldn&apos;t help but <em className="accent">wonder</em>… what is the data actually saying?
+            Hungry for experience and ready to <em className="accent">dive in</em>. What&apos;s the first task?
           </h1>
           <p className="lede">
-            Six years of asking better questions of messy warehouses. SQL, Python, and dashboards dressed well
-            enough that executives read them in public.
+            I like exploring things, and I&apos;m comfortable being a beginner, which makes me quick to pick up whatever
+            is new.
+          </p>
+          <p className="lede">
+            I like people as much as problems: I listen first, then explain things in whatever way makes sense to the
+            person in front of me. Studying across two countries taught me to adapt quickly and to explain things to
+            people who don&apos;t share my background.
           </p>
           <div className="actions">
-            <Link href="/work" className="btn btn-ink">Read the case files</Link>
-            <Link href="/about" className="btn btn-ghost">About the author</Link>
+            <a href={cv} download className="btn btn-pink">↓ Download CV</a>
+            <Link href="/work" className="btn btn-ghost">Read the case files</Link>
           </div>
         </div>
-        <div className="portrait-frame plaid-lg">
-          <Slot label="Editorial portrait" note="900 × 1125 · drop your photo here" />
-          <div className="pull">&ldquo;Numbers, but make it fashion.&rdquo;</div>
+        <div className="intro-side" data-reveal style={{ "--d": "120ms" } as React.CSSProperties}>
+          <div className="kicker">Education · Double degree</div>
+          <div className="jobs">
+            {education.map((e) => (
+              <div key={e.degree} className="job">
+                <div className="job-head">
+                  <span className="job-role">{e.degree}</span>
+                  <span className="job-years">{e.years}</span>
+                </div>
+                <div className="job-detail">
+                  <em>{e.school}</em> · {e.location}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="kicker principles-head">How I work</div>
+          <ol className="principles">
+            {principles.map((p, i) => (
+              <li key={p.title} className="principle">
+                <span className="principle-num">{String(i + 1).padStart(2, "0")}</span>
+                <span className="principle-body">
+                  <span className="principle-title">{p.title}</span>
+                  <span className="principle-text">{p.text}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <div className="stats">
-        {stats.map((s) => (
-          <div key={s.label} className="stat">
-            <div className="stat-value">{s.value}</div>
-            <div className="stat-label">{s.label}</div>
-          </div>
-        ))}
-      </div>
+      <Marquee words={ribbon} />
 
       <section className="section">
-        <div className="section-head">
+        <div className="section-head" data-reveal>
           <h2 className="display">
-            This season&apos;s <em className="accent">features</em>
+            Featured <em className="accent">projects</em>
           </h2>
           <Link href="/work" className="text-btn">All case files →</Link>
         </div>
         <div className="feature-grid">
-          {featured.map((p) => (
-            <Link key={p.title} href={`/work/${slugify(p.title)}`} className="card feature">
+          {featured.map((p, i) => (
+            <Link
+              key={p.title}
+              href={`/work/${slugify(p.title)}`}
+              className="card feature"
+              data-reveal
+              style={{ "--d": `${i * 110}ms` } as React.CSSProperties}
+            >
               <Slot label={p.slot} src={p.image} alt={p.title} />
               <div className="feature-body">
                 <div className="kicker">{p.kicker}</div>
                 <div className="feature-title">{p.title}</div>
-                <div className="feature-blurb">{p.teaser}</div>
+                <div className="feature-blurb">{p.blurb}</div>
               </div>
             </Link>
           ))}
         </div>
       </section>
+
     </>
   );
 }

@@ -9,6 +9,20 @@ function SectionBlock({ block }: { block: Block }) {
       return <h3 className="detail-h3">{block.text}</h3>;
     case "paragraph":
       return <p className="case-blurb">{block.text}</p>;
+    case "list":
+      return (
+        <ul className="detail-list case-blurb">
+          {block.items.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      );
+    case "code":
+      return (
+        <pre className="detail-code">
+          <code>{block.text}</code>
+        </pre>
+      );
     case "image":
       return (
         <figure className="detail-figure">
@@ -86,6 +100,21 @@ export default async function ProjectDetail({
               <span key={t} className="chip">{t}</span>
             ))}
           </div>
+          {project.links && (
+            <div className="detail-links">
+              {project.links.map((l) =>
+                l.download ? (
+                  <a key={l.href} href={l.href} download className="text-btn">
+                    ↓ {l.label}
+                  </a>
+                ) : (
+                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="text-btn">
+                    ↗ {l.label}
+                  </a>
+                )
+              )}
+            </div>
+          )}
           {project.details && (
             <div className="detail-copy">
               {project.details.map((paragraph, i) => (
